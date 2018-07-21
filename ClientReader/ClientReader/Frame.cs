@@ -9,7 +9,7 @@ namespace ClientReader
     public class Frame
     {
         public enum FIELDS : int { HEADER, LENGTH, CODE, DATA};
-        enum CODE : byte
+        public enum CODE : byte
         {
             LerNumSerie = 0x01,
             LerStatus = 0x02,
