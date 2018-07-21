@@ -8,34 +8,29 @@ namespace ClientReader
 {
     public class Medidor
     {
-        private string ip;
-        private int porta;
-
-        public bool connect()
+        public void lerNumSerie()
         {
-            return false;
+
         }
-
-        public bool disconnect()
+        public void lerRegistroStatus()
         {
-            return false;
+
         }
-
-        public bool sendCommand(Mensagem cmd)
+        public void definirIndiceLeitura()
         {
-            return false;
+
         }
-
-        public Mensagem receive()
+        public void lerDataHoraRegistroAtual()
         {
-            Mensagem msg = null;
-            validaRetorno(msg);
-            return null;
+
         }
-
-        private void validaRetorno(Mensagem msg)
+        public void lerValorEnergiaRegistroAtual()
         {
-            throw new NotImplementedException();
+
+        }
+        public void executarLeitura()
+        {
+
         }
     }
 }
