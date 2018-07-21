@@ -8,9 +8,17 @@ namespace ClientReader
 {
     public class Medidor
     {
-        public void lerNumSerie()
-        {
+        private Canal canal;
 
+        public Medidor(Canal c)
+        {
+            this.canal = c;
+            bool result = canal.connect();
+        }
+
+        protected void lerNumSerie()
+        {
+            //canal.send(new Mensagem(null));
         }
         public void lerRegistroStatus()
         {
@@ -30,7 +38,7 @@ namespace ClientReader
         }
         public void executarLeitura()
         {
-
+            lerNumSerie();
         }
     }
 }
