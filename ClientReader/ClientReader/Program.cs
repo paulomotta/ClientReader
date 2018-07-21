@@ -25,7 +25,16 @@ namespace ClientReader
                 if (line.StartsWith("#")) continue; //ignorar linhas comentadas
 
                 string[] tmp = line.Split(' ');
-                System.Console.WriteLine(tmp[0]+" " + tmp[1]+ " " + tmp[2]+ " " +tmp[3]);
+                Pedido pedido = new Pedido(tmp[0], int.Parse(tmp[1]), int.Parse(tmp[2]), int.Parse(tmp[3]));
+                Canal c = new CanalSocket(pedido.Ip, pedido.Porta);
+                Medidor medidor = new Medidor(c);
+
+                for (int i = pedido.IndiceInicial; i <= pedido.IndiceFinal; i++)
+                {
+                        
+                    medidor.executarLeitura();
+                }
+                
             }
 
             file.Close();
