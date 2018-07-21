@@ -12,6 +12,7 @@ namespace ClientReader
         private int porta;
         private int indiceInicial;
         private int indiceFinal;
+        private List<Leitura> leituras;
 
         public string Ip
         {
@@ -65,12 +66,21 @@ namespace ClientReader
             }
         }
 
+        public List<Leitura> Leituras
+        {
+            get
+            {
+                return leituras;
+            }
+        }
+
         public Pedido(string ip, int porta, int indiceInicial, int indiceFinal)
         {
             this.ip = ip;
             this.porta = porta;
             this.indiceInicial = indiceInicial;
             this.indiceFinal = indiceFinal;
+            this.leituras = new List<Leitura>();
         }
 
         public override string ToString()
