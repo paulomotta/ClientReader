@@ -37,6 +37,9 @@ namespace ClientReader
                     byte[] data = { 0x7D, 0xE1, 0xBC, 0x59, 0x2B };
                     m = Mensagem.createMensagemRespLerDataHoraRegistroAtual(data);
                     break;
+                case (byte)Frame.CODE.LerValor:
+                    m = Mensagem.createMensagemRespLerValorRegistroAtual(10.0f);
+                    break;
 
             }
 

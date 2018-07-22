@@ -51,5 +51,15 @@ namespace ClientReader.Tests
 
         }
 
+        [TestMethod()]
+        public void lerValorEnergiaRegistroAtualTest()
+        {
+            CanalTeste ct = new CanalTeste();
+            Medidor m = new Medidor(ct);
+
+            Assert.AreEqual(10.0f, m.lerValorEnergiaRegistroAtual());
+
+        }
+
     }
 }

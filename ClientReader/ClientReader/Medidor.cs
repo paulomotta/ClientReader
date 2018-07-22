@@ -64,9 +64,13 @@ namespace ClientReader
             Console.WriteLine(response);
             return Mensagem.ByteArrayToDateTimeString(response.Frame.Data);
         }
-        public void lerValorEnergiaRegistroAtual()
+        public float lerValorEnergiaRegistroAtual()
         {
-
+            Mensagem msg = Mensagem.createMensagemLerValorRegistroAtual();
+            Console.WriteLine(msg);
+            Mensagem response = canal.processRequest(msg);
+            Console.WriteLine(response);
+            return Mensagem.IEEE754ByteArrayToFloat(response.Frame.Data);
         }
         public void executarLeitura()
         {
