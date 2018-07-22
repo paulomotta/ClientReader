@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,17 +14,26 @@ namespace ClientReader
         public Medidor(Canal c)
         {
             this.canal = c;
-            bool result = canal.connect();
+        }
+
+        public bool connect()
+        {
+            return canal.connect();
+        }
+
+        public bool disconnect()
+        {
+            return canal.disconnect();
         }
 
         public string lerNumSerie()
         {
             Mensagem msg = Mensagem.createMensagemLerNumSerie();
-            //Console.WriteLine(msg);
+            Debug.WriteLine(msg);
             Mensagem response = canal.processRequest(msg);
-            //Console.WriteLine(response);
+            Debug.WriteLine(response);
             string numSerie = Mensagem.ByteArrayToString(response.Frame.Data);
-            //Console.WriteLine(numSerie);
+            Debug.WriteLine(numSerie);
             return numSerie;
         }
         public UInt16[] lerRegistroStatus()
