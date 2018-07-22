@@ -21,7 +21,20 @@ namespace ClientReader
 
         protected override Mensagem concreteReceive()
         {
-            return Mensagem.createMensagemRespLerNumSerie("ABCDEFG\0");
+            Mensagem m = null;
+            switch (msg.Frame.Code)
+            {
+                case (byte)Frame.CODE.LerNumSerie:
+                    m = Mensagem.createMensagemRespLerNumSerie("ABCDEFG\0");
+                    break;
+                case (byte)Frame.CODE.LerStatus:
+                    m = Mensagem.createMensagemRespLerStatus(300, 600);
+                    break;
+
+            }
+
+
+            return m;
         }
 
         protected override bool concreteSend(Mensagem cmd)
