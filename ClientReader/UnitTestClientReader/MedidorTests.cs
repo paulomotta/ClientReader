@@ -41,5 +41,15 @@ namespace ClientReader.Tests
 
         }
 
+        [TestMethod()]
+        public void lerDataHoraRegistroAtualTest()
+        {
+            CanalTeste ct = new CanalTeste();
+            Medidor m = new Medidor(ct);
+
+            Assert.AreEqual("2014-01-23 17:25:10", m.lerDataHoraRegistroAtual());
+
+        }
+
     }
 }

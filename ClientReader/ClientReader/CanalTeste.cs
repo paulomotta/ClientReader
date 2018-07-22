@@ -33,6 +33,10 @@ namespace ClientReader
                 case (byte)Frame.CODE.DefinirRegistro:
                     m = Mensagem.createMensagemRespDefinirRegistro(0);
                     break;
+                case (byte)Frame.CODE.LerDataHora:
+                    byte[] data = { 0x7D, 0xE1, 0xBC, 0x59, 0x2B };
+                    m = Mensagem.createMensagemRespLerDataHoraRegistroAtual(data);
+                    break;
 
             }
 

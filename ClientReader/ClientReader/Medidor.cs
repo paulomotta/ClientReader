@@ -56,9 +56,13 @@ namespace ClientReader
             return response.Frame.Data[0];
 
         }
-        public void lerDataHoraRegistroAtual()
+        public string lerDataHoraRegistroAtual()
         {
-
+            Mensagem msg = Mensagem.createMensagemLerDataHoraRegistroAtual();
+            Console.WriteLine(msg);
+            Mensagem response = canal.processRequest(msg);
+            Console.WriteLine(response);
+            return Mensagem.ByteArrayToDateTimeString(response.Frame.Data);
         }
         public void lerValorEnergiaRegistroAtual()
         {
