@@ -39,9 +39,34 @@ namespace ClientReader
 
         public static Mensagem createMensagemDefinirRegistro(UInt16 registro)
         {
-            byte []data = BitConverter.GetBytes(registro);
+            byte[] data = UInt16ToByteArray(registro);
             Frame f = new Frame((byte)data.Length, (byte)Frame.CODE.DefinirRegistro, data);
             return new Mensagem(f);
+        }
+
+        public static byte[] UInt16ToByteArray(UInt16 num)
+        {
+            byte[] tmp = BitConverter.GetBytes(num);
+            int size = tmp.Length;
+            byte[] data = new byte[size];
+            for (int i = 0; i < size; i++)
+            {
+                data[i] = tmp[size - 1 - i];
+            }
+            return data;
+        }
+
+        public static UInt16 ByteArrayToUInt16(byte[] array)
+        {
+            int size = array.Length;
+            byte[] data = new byte[size];
+            for (int i = 0; i < size; i++)
+            {
+                data[i] = array[size - 1 - i];
+            }
+
+            UInt16 num = BitConverter.ToUInt16(data,0);
+            return num;
         }
         
     }

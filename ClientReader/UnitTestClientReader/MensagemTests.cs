@@ -34,8 +34,20 @@ namespace ClientReader.Tests
             Assert.AreEqual(0x7C, m.Frame.Checksum);
             Assert.AreEqual((byte)Frame.CODE.DefinirRegistro, m.Frame.Code);
             Assert.AreEqual(2, m.Frame.Data.Length);
-            Assert.AreEqual(0x7C, m.Frame.Data[0]);
-            Assert.AreEqual(0x01, m.Frame.Data[1]);
+            Assert.AreEqual(0x01, m.Frame.Data[0]);
+            Assert.AreEqual(0x7C, m.Frame.Data[1]);
+        }
+
+        [TestMethod()]
+        public void UInt16ToByteArrayAndBackTest()
+        {
+            UInt16 num = 380;
+            byte[] data = Mensagem.UInt16ToByteArray(num);
+            Assert.AreEqual(0x01, data[0]);
+            Assert.AreEqual(0x7C, data[1]);
+
+            UInt16 result = Mensagem.ByteArrayToUInt16(data);
+            Assert.AreEqual(num, result);
         }
     }
 }
