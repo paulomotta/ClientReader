@@ -17,6 +17,7 @@ namespace ClientReader
         private BinaryWriter writer;
         private BinaryReader reader;
         private int porta;
+        private byte[] buffer = new byte[260];
 
         public EchoServer(int porta)
         {
@@ -34,6 +35,21 @@ namespace ClientReader
                 stream = new NetworkStream(socket);
                 writer = new BinaryWriter(stream);
                 reader = new BinaryReader(stream);
+
+                while (true)
+                {
+                    for (int i = 0; i < 4; i++)
+                    {
+                        buffer[i] = reader.ReadByte();
+                        Console.WriteLine("EchoServer>>" + buffer[i]);
+                    }
+                    
+                    for (int i = 0; i < 4; i++)
+                    {
+                        writer.Write(buffer[i]);
+                    }
+                }
+                
 
 
             }
