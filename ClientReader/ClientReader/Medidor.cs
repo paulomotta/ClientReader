@@ -16,10 +16,15 @@ namespace ClientReader
             bool result = canal.connect();
         }
 
-        protected void lerNumSerie()
+        public string lerNumSerie()
         {
             Mensagem msg = Mensagem.createMensagemLerNumSerie();
+            //Console.WriteLine(msg);
             Mensagem response = canal.processRequest(msg);
+            //Console.WriteLine(response);
+            string numSerie = Mensagem.ByteArrayToString(response.Frame.Data);
+            //Console.WriteLine(numSerie);
+            return numSerie;
         }
         public void lerRegistroStatus()
         {
