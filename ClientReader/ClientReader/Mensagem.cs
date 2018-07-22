@@ -45,6 +45,19 @@ namespace ClientReader
             return new Mensagem(f);
         }
 
+        public static Mensagem createMensagemRespLerStatus(UInt16 antigo, UInt16 novo)
+        {
+            byte[] b_antigo = UInt16ToByteArray(antigo);
+            byte[] b_novo = UInt16ToByteArray(novo);
+            byte[] data = new byte[4];
+            data[0] = b_antigo[0];
+            data[1] = b_antigo[1];
+            data[2] = b_novo[0];
+            data[3] = b_novo[1];
+            Frame f = new Frame((byte)4, (byte)Frame.CODE.RespLerStatus, data);
+            return new Mensagem(f);
+        }
+
         public static Mensagem createMensagemDefinirRegistro(UInt16 registro)
         {
             byte[] data = UInt16ToByteArray(registro);

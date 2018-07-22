@@ -20,11 +20,42 @@ namespace ClientReader.Tests
         }
 
         [TestMethod()]
+        public void createMensagemRespLerNumSerieTest()
+        {
+            Mensagem m = Mensagem.createMensagemRespLerNumSerie("ABC\0");
+            Assert.AreEqual(0xC5, m.Frame.Checksum);
+            Assert.AreEqual((byte)Frame.CODE.RespLerNumSerie, m.Frame.Code);
+            Assert.AreEqual("ABC",Mensagem.ByteArrayToString(m.Frame.Data));
+        }
+
+        [TestMethod()]
         public void createMensagemLerStatusTest()
         {
             Mensagem m = Mensagem.createMensagemLerStatus();
             Assert.AreEqual(0x02, m.Frame.Checksum);
             Assert.AreEqual((byte)Frame.CODE.LerStatus, m.Frame.Code);
+        }
+
+        [TestMethod()]
+        public void createMensagemRespLerStatusTest()
+        {
+            Mensagem m = Mensagem.createMensagemRespLerStatus(127,457);
+            Assert.AreEqual(0x31, m.Frame.Checksum);
+            Assert.AreEqual((byte)Frame.CODE.RespLerStatus, m.Frame.Code);
+
+            byte[] data = m.Frame.Data;
+            byte[] antigo = new byte[2];
+            byte[] novo = new byte[2];
+
+            antigo[0] = data[0];
+            antigo[1] = data[1];
+            novo[0] = data[2];
+            novo[1] = data[3];
+
+            UInt16 regAntigo = Mensagem.ByteArrayToUInt16(antigo);
+            UInt16 regNovo = Mensagem.ByteArrayToUInt16(novo);
+            Assert.AreEqual(127, regAntigo);
+            Assert.AreEqual(457, regNovo);
         }
 
         [TestMethod()]
