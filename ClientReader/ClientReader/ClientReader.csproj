@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Canal.cs" />
+    <Compile Include="CanalTeste.cs" />
     <Compile Include="EchoServer.cs" />
     <Compile Include="Leitura.cs" />
     <Compile Include="Medidor.cs" />

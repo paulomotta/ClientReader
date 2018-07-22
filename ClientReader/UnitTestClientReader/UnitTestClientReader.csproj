@@ -52,6 +52,7 @@
   <ItemGroup>
     <Compile Include="CanalSocketTests.cs" />
     <Compile Include="FrameTests.cs" />
+    <Compile Include="MedidorTests.cs" />
     <Compile Include="MensagemTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
