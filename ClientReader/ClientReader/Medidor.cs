@@ -26,7 +26,7 @@ namespace ClientReader
             //Console.WriteLine(numSerie);
             return numSerie;
         }
-        public bool lerRegistroStatus()
+        public UInt16[] lerRegistroStatus()
         {
             Mensagem msg = Mensagem.createMensagemLerStatus();
             Console.WriteLine(msg);
@@ -41,11 +41,10 @@ namespace ClientReader
             novo[0] = data[2];
             novo[1] = data[3];
 
-            UInt16 regAntigo = Mensagem.ByteArrayToUInt16(antigo);
-            UInt16 regNovo = Mensagem.ByteArrayToUInt16(novo);
-
-            Console.WriteLine(regAntigo + " " + regNovo);
-            return true;
+            UInt16[] reg = { Mensagem.ByteArrayToUInt16(antigo), Mensagem.ByteArrayToUInt16(novo) }; 
+                
+            Console.WriteLine(reg[0] + " " + reg[1]);
+            return reg;
         }
         public byte definirIndiceLeitura(UInt16 indice)
         {

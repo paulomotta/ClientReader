@@ -26,9 +26,9 @@ namespace ClientReader.Tests
         {
             CanalTeste ct = new CanalTeste();
             Medidor m = new Medidor(ct);
-
-            Assert.IsTrue(m.lerRegistroStatus());
-
+            UInt16 []reg = m.lerRegistroStatus();
+            Assert.AreEqual(300, reg[0]);
+            Assert.AreEqual(600, reg[1]);
         }
 
         [TestMethod()]
