@@ -25,6 +25,11 @@ namespace ClientReader
             this.frame = f;
         }
 
+        public static Mensagem createMensagem(Frame f)
+        {
+            return new Mensagem(f);
+        }
+
         public static Mensagem createMensagemLerNumSerie()
         {
             Frame f = new Frame(0, (byte)Frame.CODE.LerNumSerie, null);
