@@ -47,8 +47,13 @@ namespace ClientReader
             Console.WriteLine(regAntigo + " " + regNovo);
             return true;
         }
-        public void definirIndiceLeitura()
+        public byte definirIndiceLeitura(UInt16 indice)
         {
+            Mensagem msg = Mensagem.createMensagemDefinirRegistro(indice);
+            Console.WriteLine(msg);
+            Mensagem response = canal.processRequest(msg);
+            Console.WriteLine(response);
+            return response.Frame.Data[0];
 
         }
         public void lerDataHoraRegistroAtual()

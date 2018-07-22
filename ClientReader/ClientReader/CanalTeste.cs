@@ -30,6 +30,9 @@ namespace ClientReader
                 case (byte)Frame.CODE.LerStatus:
                     m = Mensagem.createMensagemRespLerStatus(300, 600);
                     break;
+                case (byte)Frame.CODE.DefinirRegistro:
+                    m = Mensagem.createMensagemRespDefinirRegistro(0);
+                    break;
 
             }
 

@@ -31,5 +31,15 @@ namespace ClientReader.Tests
 
         }
 
+        [TestMethod()]
+        public void definirIndiceLeituraTest()
+        {
+            CanalTeste ct = new CanalTeste();
+            Medidor m = new Medidor(ct);
+
+            Assert.AreEqual(0, m.definirIndiceLeitura(127));
+
+        }
+
     }
 }
