@@ -93,5 +93,33 @@ namespace ClientReader
             return BitConverter.ToSingle(reverseByteArray(array), 0);
         }
 
+        public static string ByteArrayToDateTimeString(byte[] array)
+        {
+            UInt16 mesMask = 0x000F;
+
+            byte[] anoMes = { array[1], array[0] };
+
+            UInt16 ano = (UInt16)(BitConverter.ToUInt16(anoMes, 0) );
+            UInt16 mes = (UInt16)(BitConverter.ToUInt16(anoMes, 0) & mesMask);
+            ano >>= 4; 
+
+            byte[] diaHoraMin = { array[3], array[2] };
+
+            UInt16 diaMask  = 0xF800;
+            UInt16 horaMask = 0x07C0;
+            UInt16 minMask  = 0x003F;
+            UInt16 dia = (UInt16)(BitConverter.ToUInt16(diaHoraMin, 0) & diaMask);
+            UInt16 hora = (UInt16)(BitConverter.ToUInt16(diaHoraMin, 0) & horaMask);
+            UInt16 min = (UInt16)(BitConverter.ToUInt16(diaHoraMin, 0) & minMask);
+            dia >>= 11;
+            hora >>= 6;
+
+            UInt16 seg = (UInt16)(array[4] >> 2);
+            
+            DateTime dateTime = new DateTime(ano, mes, dia, hora, min, seg);
+
+            return dateTime.ToString("yyyy-MM-dd HH:mm:ss");
+        }
+
     }
 }

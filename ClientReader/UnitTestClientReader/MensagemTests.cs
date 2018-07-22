@@ -99,5 +99,15 @@ namespace ClientReader.Tests
             float result = Mensagem.IEEE754ByteArrayToFloat(data);
             Assert.AreEqual(num, result);
         }
+
+        [TestMethod()]
+        public void ByteArrayToDateTimeStringTest()
+        {
+            //7D E1 BC 59 2B – contem data e hora 2014-01-23 17:25:10
+            byte[] data = { 0x7D, 0xE1, 0xBC, 0x59, 0x2B };
+
+            string result = Mensagem.ByteArrayToDateTimeString(data);
+            Assert.AreEqual("2014-01-23 17:25:10",result);
+        }
     }
 }
