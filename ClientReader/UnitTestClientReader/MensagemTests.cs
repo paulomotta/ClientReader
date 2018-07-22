@@ -55,6 +55,14 @@ namespace ClientReader.Tests
         }
 
         [TestMethod()]
+        public void createMensagemDeErro()
+        {
+            Mensagem m = Mensagem.createMensagemDeErro();
+            Assert.AreEqual(0xFF, m.Frame.Checksum);
+            Assert.AreEqual((byte)Frame.CODE.Erro, m.Frame.Code);
+        }
+
+        [TestMethod()]
         public void UInt16ToByteArrayAndBackTest()
         {
             UInt16 num = 380;
