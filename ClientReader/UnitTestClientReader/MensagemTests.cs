@@ -88,6 +88,16 @@ namespace ClientReader.Tests
         }
 
         [TestMethod()]
+        public void createMensagemRespLerDataHoraRegistroAtualTest()
+        {
+            byte[] data = { 0x7D, 0xE1, 0xBC, 0x59, 0x2B };
+            Mensagem m = Mensagem.createMensagemRespLerDataHoraRegistroAtual(data);
+            Assert.AreEqual(0xD3, m.Frame.Checksum);
+            Assert.AreEqual((byte)Frame.CODE.RespLerDataHora, m.Frame.Code);
+            Assert.AreEqual("2014-01-23 17:25:10", Mensagem.ByteArrayToDateTimeString(m.Frame.Data));
+        }
+
+        [TestMethod()]
         public void createMensagemLerValorRegistroAtualTest()
         {
             Mensagem m = Mensagem.createMensagemLerValorRegistroAtual();

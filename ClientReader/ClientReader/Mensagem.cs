@@ -78,6 +78,13 @@ namespace ClientReader
             return new Mensagem(f);
         }
 
+        public static Mensagem createMensagemRespLerDataHoraRegistroAtual(byte[] data)
+        {
+            
+            Frame f = new Frame(05, (byte)Frame.CODE.RespLerDataHora, data);
+            return new Mensagem(f);
+        }
+
         public static Mensagem createMensagemLerValorRegistroAtual()
         {
             Frame f = new Frame(0, (byte)Frame.CODE.LerValor, null);
