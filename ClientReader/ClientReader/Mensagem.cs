@@ -31,6 +31,14 @@ namespace ClientReader
             return new Mensagem(f);
         }
 
+        public static Mensagem createMensagemRespLerNumSerie(string numSerie)
+        {
+            Encoding enc = Encoding.ASCII;
+            byte[] bytes = enc.GetBytes(numSerie);
+            Frame f = new Frame((byte)bytes.Length, (byte)Frame.CODE.RespLerNumSerie, bytes);
+            return new Mensagem(f);
+        }
+
         public static Mensagem createMensagemLerStatus()
         {
             Frame f = new Frame(0, (byte)Frame.CODE.LerStatus, null);
@@ -119,6 +127,16 @@ namespace ClientReader
             DateTime dateTime = new DateTime(ano, mes, dia, hora, min, seg);
 
             return dateTime.ToString("yyyy-MM-dd HH:mm:ss");
+        }
+
+        public static string ByteArrayToString(byte[] array)
+        {
+            return Encoding.ASCII.GetString(array, 0, array.Length-1);
+        }
+
+        public override string ToString()
+        {
+            return frame.ToString();
         }
 
     }
