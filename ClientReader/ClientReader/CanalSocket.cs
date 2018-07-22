@@ -89,12 +89,12 @@ namespace ClientReader
             return true;
         }
 
-        public override bool concreteSend(Mensagem cmd)
+        protected override bool concreteSend(Mensagem cmd)
         {
             return false;
         }
 
-        public override Mensagem concreteReceive()
+        protected override Mensagem concreteReceive()
         {
             return null;
         }

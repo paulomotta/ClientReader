@@ -15,9 +15,9 @@ namespace ClientReader
 
         public abstract bool disconnect();
 
-        public abstract bool concreteSend(Mensagem cmd);
+        protected abstract bool concreteSend(Mensagem cmd);
 
-        public abstract Mensagem concreteReceive();
+        protected abstract Mensagem concreteReceive();
 
         public bool send(Mensagem cmd)
         {
