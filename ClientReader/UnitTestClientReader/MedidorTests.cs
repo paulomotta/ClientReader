@@ -20,6 +20,16 @@ namespace ClientReader.Tests
             Assert.AreEqual("ABCDEFG", m.lerNumSerie());
                 
         }
-        
+
+        [TestMethod()]
+        public void lerStatusTest()
+        {
+            CanalTeste ct = new CanalTeste();
+            Medidor m = new Medidor(ct);
+
+            Assert.IsTrue(m.lerRegistroStatus());
+
+        }
+
     }
 }

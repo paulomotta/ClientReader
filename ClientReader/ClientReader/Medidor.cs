@@ -26,9 +26,26 @@ namespace ClientReader
             //Console.WriteLine(numSerie);
             return numSerie;
         }
-        public void lerRegistroStatus()
+        public bool lerRegistroStatus()
         {
+            Mensagem msg = Mensagem.createMensagemLerStatus();
+            Console.WriteLine(msg);
+            Mensagem response = canal.processRequest(msg);
+            Console.WriteLine(response);
+            byte []data = response.Frame.Data;
+            byte[] antigo = new byte[2];
+            byte[] novo = new byte[2];
 
+            antigo[0] = data[0];
+            antigo[1] = data[1];
+            novo[0] = data[2];
+            novo[1] = data[3];
+
+            UInt16 regAntigo = Mensagem.ByteArrayToUInt16(antigo);
+            UInt16 regNovo = Mensagem.ByteArrayToUInt16(novo);
+
+            Console.WriteLine(regAntigo + " " + regNovo);
+            return true;
         }
         public void definirIndiceLeitura()
         {
