@@ -19,6 +19,17 @@ namespace ClientReader
 
         protected abstract Mensagem concreteReceive();
 
+        public Mensagem processRequest(Mensagem cmd)
+        {
+            send(cmd);
+            Mensagem m = receive();
+            while(m == null)
+            {
+                m = receive();
+            }
+
+            return m;
+        }
         public bool send(Mensagem cmd)
         {
             currentRequest = cmd;
@@ -28,20 +39,28 @@ namespace ClientReader
         public Mensagem receive()
         {
             Mensagem msg = concreteReceive();
-            currentResponse = msg;
-            if (validaRetorno(msg))
+            if(msg.Frame.Code == (byte)Frame.CODE.Erro)
             {
-                return msg;
-            } else
-            {
+                send(currentRequest);
                 return null;
             }
-            
+            currentResponse = msg;
+            //TODO may become an infinite loop, add a max retries counter
+            while (!validaRetorno(msg))
+            {
+                Mensagem error = Mensagem.createMensagemDeErro();
+                concreteSend(error);
+                msg = concreteReceive();
+                currentResponse = msg;
+            }
+            return msg;
+
         }
 
         private bool validaRetorno(Mensagem msg)
         {
-            throw new NotImplementedException();
+            return msg.Frame.isValidChecksum() && 
+                Frame.matchCodes(currentRequest.Frame,msg.Frame) ;
         }
     }
 }

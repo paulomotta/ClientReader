@@ -18,7 +18,8 @@ namespace ClientReader
 
         protected void lerNumSerie()
         {
-            //canal.send(new Mensagem(null));
+            Mensagem msg = Mensagem.createMensagemLerNumSerie();
+            Mensagem response = canal.processRequest(msg);
         }
         public void lerRegistroStatus()
         {
