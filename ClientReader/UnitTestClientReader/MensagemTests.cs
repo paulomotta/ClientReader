@@ -63,6 +63,18 @@ namespace ClientReader.Tests
         }
 
         [TestMethod()]
+        public void reverseByteArrayTest()
+        {
+            byte[] data = { 0x07, 0x11, 0x17, 0x29 };
+            byte[] result = Mensagem.reverseByteArray(data);
+            Assert.AreEqual(0x29, result[0]);
+            Assert.AreEqual(0x17, result[1]);
+            Assert.AreEqual(0x11, result[2]);
+            Assert.AreEqual(0x07, result[3]);
+
+        }
+
+        [TestMethod()]
         public void UInt16ToByteArrayAndBackTest()
         {
             UInt16 num = 380;
@@ -71,6 +83,20 @@ namespace ClientReader.Tests
             Assert.AreEqual(0x7C, data[1]);
 
             UInt16 result = Mensagem.ByteArrayToUInt16(data);
+            Assert.AreEqual(num, result);
+        }
+
+        [TestMethod()]
+        public void FloatIEEE754ToByteArrayAndBackTest()
+        {
+            float num = 10.0f;
+            byte[] data = Mensagem.FloatToIEEE754ByteArray(num);
+            Assert.AreEqual(0x41, data[0]);
+            Assert.AreEqual(0x20, data[1]);
+            Assert.AreEqual(0x00, data[2]);
+            Assert.AreEqual(0x00, data[3]);
+
+            float result = Mensagem.IEEE754ByteArrayToFloat(data);
             Assert.AreEqual(num, result);
         }
     }

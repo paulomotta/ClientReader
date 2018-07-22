@@ -62,30 +62,36 @@ namespace ClientReader
             return new Mensagem(f);
         }
 
-        public static byte[] UInt16ToByteArray(UInt16 num)
+        public static byte[] reverseByteArray(byte[] src)
         {
-            byte[] tmp = BitConverter.GetBytes(num);
-            int size = tmp.Length;
-            byte[] data = new byte[size];
+            int size = src.Length;
+            byte[] dst = new byte[size];
             for (int i = 0; i < size; i++)
             {
-                data[i] = tmp[size - 1 - i];
+                dst[i] = src[size - 1 - i];
             }
-            return data;
+            return dst;
+        }
+
+        public static byte[] UInt16ToByteArray(UInt16 num)
+        {
+            return reverseByteArray(BitConverter.GetBytes(num));
         }
 
         public static UInt16 ByteArrayToUInt16(byte[] array)
         {
-            int size = array.Length;
-            byte[] data = new byte[size];
-            for (int i = 0; i < size; i++)
-            {
-                data[i] = array[size - 1 - i];
-            }
-
-            UInt16 num = BitConverter.ToUInt16(data,0);
-            return num;
+            return BitConverter.ToUInt16(reverseByteArray(array), 0);
         }
-        
+
+        public static byte[] FloatToIEEE754ByteArray(float num)
+        {
+            return reverseByteArray(BitConverter.GetBytes(num));
+        }
+
+        public static float IEEE754ByteArrayToFloat(byte[] array)
+        {
+            return BitConverter.ToSingle(reverseByteArray(array), 0);
+        }
+
     }
 }
