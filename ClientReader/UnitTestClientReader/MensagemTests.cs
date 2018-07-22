@@ -70,6 +70,16 @@ namespace ClientReader.Tests
         }
 
         [TestMethod()]
+        public void createMensagemRespDefinirRegistroTest()
+        {
+            Mensagem m = Mensagem.createMensagemRespDefinirRegistro(0);
+            Assert.AreEqual(0x82, m.Frame.Checksum);
+            Assert.AreEqual((byte)Frame.CODE.RespDefinirRegistro, m.Frame.Code);
+            Assert.AreEqual(1, m.Frame.Data.Length);
+            Assert.AreEqual(0x00, m.Frame.Data[0]);
+        }
+
+        [TestMethod()]
         public void createMensagemLerDataHoraRegistroAtualTest()
         {
             Mensagem m = Mensagem.createMensagemLerDataHoraRegistroAtual();
