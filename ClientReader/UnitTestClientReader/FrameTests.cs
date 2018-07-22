@@ -140,5 +140,18 @@ namespace ClientReader.Tests
             
             Assert.IsFalse(f3.isValidChecksum());
         }
+
+        [TestMethod()]
+        public void matchCodesTest()
+        {
+            byte[] data1 = { 0x41, 0x42, 0x43, 0x44, 0x45, 0x46, 0x47, 0x00 };
+            Frame f1 = new Frame(0x08, 0x01, data1);
+
+            byte[] data2 = { 0x41, 0x42, 0x43, 0x44, 0x45, 0x46, 0x00 };
+            Frame f2 = new Frame(0x07, 0x81, data2);
+
+            Assert.IsTrue(Frame.matchCodes(f1,f2));
+
+        }
     }
 }

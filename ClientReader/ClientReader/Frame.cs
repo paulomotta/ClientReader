@@ -12,11 +12,16 @@ namespace ClientReader
         public enum CODE : byte
         {
             LerNumSerie = 0x01,
+            RespLerNumSerie = 0x81,
             LerStatus = 0x02,
+            RespLerStatus = 0x82,
             DefinirRegistro = 0x03,
+            RespDefinirRegistro = 0x83,
             LerDataHora = 0x04,
+            RespLerDataHora = 0x84,
             LerValor = 0x05,
-            Erro = 0xFF
+            RespLerValor = 0x85,
+            Erro = 0xFF,
         }
         private byte header = 0x7D;
         private byte length;
@@ -115,6 +120,14 @@ namespace ClientReader
         public bool isValidChecksum()
         {
             return (createChecksum() == this.checksum);
+        }
+
+        public static bool matchCodes(Frame req, Frame resp)
+        {
+            byte reqCode = req.code;
+            byte respCode = resp.code;
+
+            return (reqCode == (respCode - 128));
         }
 
         public int frameSize()
