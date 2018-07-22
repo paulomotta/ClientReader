@@ -19,7 +19,7 @@ namespace ClientReader
             return true;
         }
 
-        protected override Mensagem concreteReceive()
+        public override Mensagem concreteReceive()
         {
             Mensagem m = null;
             switch (msg.Frame.Code)
@@ -47,7 +47,7 @@ namespace ClientReader
             return m;
         }
 
-        protected override bool concreteSend(Mensagem cmd)
+        public override bool concreteSend(Mensagem cmd)
         {
             msg = cmd;
             return true;
