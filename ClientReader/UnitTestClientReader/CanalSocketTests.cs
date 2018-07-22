@@ -12,40 +12,54 @@ namespace ClientReader.Tests
     [TestClass()]
     public class CanalSocketTests
     {
-        
-        [TestMethod()]
-        public void connectTest()
+        EchoServer server;
+        Thread t;
+
+        [TestInitialize()]
+        public void Initialize()
         {
-            EchoServer server = new EchoServer(20015);
-            Thread t = new Thread(new ThreadStart(server.init));
+            server = new EchoServer(20015);
+            t = new Thread(new ThreadStart(server.init));
             t.Name = "Listener";
             t.Start();
+        }
+
+        [TestCleanup()]
+        public void Cleanup()
+        {
+            server.stop();
+        }
+
+        [TestMethod()]
+        public void connectAndDisconnectTest()
+        {
             Canal c = new CanalSocket("localhost", 20015);
             bool result = c.connect();
             Assert.IsTrue(result);
             result = false;
             result = c.disconnect();
+            Assert.IsTrue(result);   
+        }
+
+        [TestMethod()]
+        public void concreteSendReceiveTest()
+        {
+            Canal c = new CanalSocket("localhost", 20015);
+            bool result = c.connect();
             Assert.IsTrue(result);
-            server.stop();
-            
-        }
 
-        [TestMethod()]
-        public void disconnectTest()
-        {
-            Assert.Fail();
-        }
+            Mensagem src = Mensagem.createMensagemDeErro();
+            bool errorCode = c.concreteSend(src);
 
-        [TestMethod()]
-        public void concreteSendTest()
-        {
-            Assert.Fail();
-        }
+            Assert.IsTrue(errorCode);
 
-        [TestMethod()]
-        public void concreteReceiveTest()
-        {
-            Assert.Fail();
+            Mensagem msg = c.concreteReceive();
+
+            Assert.IsNotNull(msg);
+
+            result = false;
+            result = c.disconnect();
+            Assert.IsTrue(result);
         }
     }
 }

@@ -89,14 +89,46 @@ namespace ClientReader
             return true;
         }
 
-        protected override bool concreteSend(Mensagem cmd)
+        public override bool concreteSend(Mensagem cmd)
         {
-            return false;
+            Frame f = cmd.Frame;
+            try
+            {
+                writer.Write(f.pack());
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return false;
+            }
+            
+            return true;
         }
 
-        protected override Mensagem concreteReceive()
+        public override Mensagem concreteReceive()
         {
-            return null;
+            byte[] buffer = new byte[260];
+            //Header, Size, Code
+            for (int i = 0; i < 3; i++)
+            {
+                buffer[i] = reader.ReadByte();
+            }
+
+            //Data
+            int size = buffer[1];
+            for (int i = 0; i < size; i++)
+            {
+                buffer[i + 3] = reader.ReadByte();
+            }
+
+            //Checksum
+            buffer[size + 3 + 1] = reader.ReadByte();
+
+            byte[] tmp = new byte[size + 3 + 1];
+            Array.Copy(buffer, tmp, (size + 3 + 1));
+
+            Mensagem m = Mensagem.createMensagem(new Frame(tmp));
+            return m;
         }
 
 
