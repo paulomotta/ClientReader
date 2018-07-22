@@ -50,6 +50,12 @@ namespace ClientReader
             return new Mensagem(f);
         }
 
+        public static Mensagem createMensagemLerValorRegistroAtual()
+        {
+            Frame f = new Frame(0, (byte)Frame.CODE.LerValor, null);
+            return new Mensagem(f);
+        }
+
         public static byte[] UInt16ToByteArray(UInt16 num)
         {
             byte[] tmp = BitConverter.GetBytes(num);

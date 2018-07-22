@@ -47,6 +47,14 @@ namespace ClientReader.Tests
         }
 
         [TestMethod()]
+        public void createMensagemLerValorRegistroAtualTest()
+        {
+            Mensagem m = Mensagem.createMensagemLerValorRegistroAtual();
+            Assert.AreEqual(0x05, m.Frame.Checksum);
+            Assert.AreEqual((byte)Frame.CODE.LerValor, m.Frame.Code);
+        }
+
+        [TestMethod()]
         public void UInt16ToByteArrayAndBackTest()
         {
             UInt16 num = 380;
