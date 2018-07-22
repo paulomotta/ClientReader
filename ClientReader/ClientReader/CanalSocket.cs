@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Net.Sockets;
 using System.IO;
+using System.Diagnostics;
 
 namespace ClientReader
 {
@@ -122,7 +123,9 @@ namespace ClientReader
             }
 
             //Checksum
-            buffer[size + 3 + 1] = reader.ReadByte();
+            byte checksum = reader.ReadByte();
+            buffer[(size-1) + 3 + 1] = checksum;
+            Debug.WriteLine("checksum=" +checksum);
 
             byte[] tmp = new byte[size + 3 + 1];
             Array.Copy(buffer, tmp, (size + 3 + 1));
