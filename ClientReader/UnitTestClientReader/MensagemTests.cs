@@ -106,6 +106,15 @@ namespace ClientReader.Tests
         }
 
         [TestMethod()]
+        public void createMensagemRespLerValorRegistroAtualTest()
+        {
+            Mensagem m = Mensagem.createMensagemRespLerValorRegistroAtual(10.0f);
+            Assert.AreEqual(0xE0, m.Frame.Checksum);
+            Assert.AreEqual((byte)Frame.CODE.RespLerValor, m.Frame.Code);
+            Assert.AreEqual(10.0f, Mensagem.IEEE754ByteArrayToFloat(m.Frame.Data));
+        }
+
+        [TestMethod()]
         public void createMensagemDeErro()
         {
             Mensagem m = Mensagem.createMensagemDeErro();

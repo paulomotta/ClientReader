@@ -91,6 +91,13 @@ namespace ClientReader
             return new Mensagem(f);
         }
 
+        public static Mensagem createMensagemRespLerValorRegistroAtual(float valor)
+        {
+            byte[] data = FloatToIEEE754ByteArray(valor);
+            Frame f = new Frame(4, (byte)Frame.CODE.RespLerValor, data);
+            return new Mensagem(f);
+        }
+
         public static Mensagem createMensagemDeErro()
         {
             Frame f = new Frame(0, (byte)Frame.CODE.Erro, null);
