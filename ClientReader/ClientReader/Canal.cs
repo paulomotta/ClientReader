@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,11 +22,16 @@ namespace ClientReader
 
         public Mensagem processRequest(Mensagem cmd)
         {
-            send(cmd);
+            Debug.WriteLine("processRequest");
+            bool res = send(cmd);
+            Debug.WriteLine("enviou = "+res);
             Mensagem m = receive();
-            while(m == null)
+            Debug.WriteLine("recebeu = " + m);
+            while (m == null)
             {
+                Debug.WriteLine("tentando receber novamente");
                 m = receive();
+                Debug.WriteLine("recebeu = " + m);
             }
 
             return m;
@@ -39,7 +45,8 @@ namespace ClientReader
         public Mensagem receive()
         {
             Mensagem msg = concreteReceive();
-            if(msg.Frame.Code == (byte)Frame.CODE.Erro)
+            Debug.WriteLine("recebeu = " + msg);
+            if (msg.Frame.Code == (byte)Frame.CODE.Erro)
             {
                 send(currentRequest);
                 return null;
@@ -48,6 +55,7 @@ namespace ClientReader
             //TODO may become an infinite loop, add a max retries counter
             while (!validaRetorno(msg))
             {
+                Debug.WriteLine("valido = "+ validaRetorno(msg));
                 Mensagem error = Mensagem.createMensagemDeErro();
                 concreteSend(error);
                 msg = concreteReceive();
