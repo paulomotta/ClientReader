@@ -44,6 +44,12 @@ namespace ClientReader
             return new Mensagem(f);
         }
 
+        public static Mensagem createMensagemLerDataHoraRegistroAtual()
+        {
+            Frame f = new Frame(0, (byte)Frame.CODE.LerDataHora, null);
+            return new Mensagem(f);
+        }
+
         public static byte[] UInt16ToByteArray(UInt16 num)
         {
             byte[] tmp = BitConverter.GetBytes(num);
