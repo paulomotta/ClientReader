@@ -21,8 +21,8 @@ namespace ClientReader
 
             string line;
             StreamReader file = new StreamReader(args[0]);
-            StreamWriter saida = new StreamWriter("leitura.txt");
-            StreamWriter faltantes = new StreamWriter("missing.txt");
+            StreamWriter saida = new StreamWriter("leitura.csv");
+            StreamWriter faltantes = new StreamWriter("missing.csv");
             NumberFormatInfo nfi = new CultureInfo("pt-BR", false).NumberFormat;
 
             while ((line = file.ReadLine()) != null)
