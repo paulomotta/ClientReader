@@ -57,7 +57,7 @@ namespace ClientReader.Tests
             CanalTeste ct = new CanalTeste();
             Medidor m = new Medidor(ct);
 
-            Assert.AreEqual(10.0f, m.lerValorEnergiaRegistroAtual());
+            Assert.AreEqual(1234.015f, m.lerValorEnergiaRegistroAtual());
 
         }
 

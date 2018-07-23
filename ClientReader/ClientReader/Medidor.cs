@@ -81,9 +81,6 @@ namespace ClientReader
             Console.WriteLine(response);
             return Mensagem.IEEE754ByteArrayToFloat(response.Frame.Data);
         }
-        public void executarLeitura()
-        {
-            lerNumSerie();
-        }
+        
     }
 }
