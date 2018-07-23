@@ -38,7 +38,7 @@ namespace ClientReader
                     m = Mensagem.createMensagemRespLerDataHoraRegistroAtual(data);
                     break;
                 case (byte)Frame.CODE.LerValor:
-                    m = Mensagem.createMensagemRespLerValorRegistroAtual(10.0f);
+                    m = Mensagem.createMensagemRespLerValorRegistroAtual(1234.015f);
                     break;
 
             }
