@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,8 +20,11 @@ namespace ClientReader
             }
 
             string line;
-            System.IO.StreamReader file =
-                new System.IO.StreamReader(args[0]);
+            StreamReader file = new StreamReader(args[0]);
+            StreamWriter saida = new StreamWriter("leitura.txt");
+            StreamWriter faltantes = new StreamWriter("missing.txt");
+            NumberFormatInfo nfi = new CultureInfo("pt-BR", false).NumberFormat;
+
             while ((line = file.ReadLine()) != null)
             {
                 if (line.StartsWith("#")) continue; //ignorar linhas comentadas
@@ -30,6 +35,7 @@ namespace ClientReader
                 Canal c = new CanalTeste();
                 Medidor medidor = new Medidor(c);
                 string numSerie = medidor.lerNumSerie();
+                saida.WriteLine(numSerie);  
                 UInt16 []registros = medidor.lerRegistroStatus();
 
                 for (int i = pedido.IndiceInicial; i <= pedido.IndiceFinal; i++)
@@ -38,6 +44,10 @@ namespace ClientReader
                     {
                         Leitura leitura = new Leitura(i,numSerie);
                         pedido.Leituras.Add(leitura);
+                        faltantes.WriteLine("{0};{1};{2}", leitura.NumSerie,
+                                            leitura.IndiceRegistro,
+                                            leitura.DataHoraLeitura);
+                        faltantes.Flush();
                     }
                     else
                     {
@@ -48,19 +58,26 @@ namespace ClientReader
 
                             Leitura leitura = new Leitura(i, numSerie, dataHora, valor);
                             pedido.Leituras.Add(leitura);
+                            saida.WriteLine("{0};{1};{2}",leitura.IndiceRegistro,
+                                            leitura.DataHora,
+                                            (Math.Round(leitura.Valor,2, MidpointRounding.ToEven)).ToString("0.00", nfi));
+                            saida.Flush();
                         }
                         else
                         {
                             Leitura leitura = new Leitura(i, numSerie);
                             pedido.Leituras.Add(leitura);
-                            //TODO gerar um log de registro faltante, mas dentro do intervalo
+                            faltantes.WriteLine("{0};{1};{2}", leitura.NumSerie,
+                                            leitura.IndiceRegistro,
+                                            leitura.DataHoraLeitura);
+                            faltantes.Flush();
                         }
                         
                     }
                 }
-                
             }
-
+            saida.Close();
+            faltantes.Close();
             file.Close();
         }
     }   
